@@ -1,0 +1,10 @@
+fastapi==0.109.2
+uvicorn==0.27.1
+python-multipart
+torch --index-url https://download.pytorch.org/whl/cpu
+ultralytics
+psycopg2-binary
+motor
+python-jose[cryptography]
+passlib[bcrypt]
+requests
