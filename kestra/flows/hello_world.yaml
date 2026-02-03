@@ -1,0 +1,18 @@
+id: hello-world-docker
+namespace: dev
+tasks:
+  - id: check-env
+    type: io.kestra.plugin.scripts.python.Script
+    taskRunner:
+      type: io.kestra.plugin.scripts.runner.docker.Docker
+      cpu:
+        cpus: 1
+    containerImage: python:3.10-slim
+    script: |
+      import os
+      import sys
+      print(f"Python version: {sys.version}")
+      print("Hello from Docker Runner!")
+      
+      # List root to see if we are in a container
+      print(f"Directory list: {os.listdir('/')}")
