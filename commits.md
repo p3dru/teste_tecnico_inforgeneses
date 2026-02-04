@@ -1,5 +1,18 @@
 # Commit Log
 
+## [Uncommitted] Reports Retrieval Module
+**Date:** 2026-02-04
+**Changes:**
+- Implemented `backend/app/api/endpoints/reports.py` (GET /reports with pagination).
+- Registered Reports Router in `main.py`.
+
+**Suggested Message:**
+```bash
+feat: implement reports retrieval endpoint with pagination and filtering
+```
+
+---
+
 ## [Uncommitted] Kestra Pipeline Implementation
 **Date:** 2026-02-04
 **Changes:**
