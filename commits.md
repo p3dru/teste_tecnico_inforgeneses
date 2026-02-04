@@ -1,5 +1,21 @@
 # Commit Log
 
+## [Uncommitted] Authentication Module Implementation
+**Date:** 2026-02-04
+**Changes:**
+- Implemented `backend/app/core/security.py` (Password Hashing, JWT utils).
+- Created `backend/app/schemas/auth.py` (Token, UserCreate models).
+- Implemented `backend/app/api/deps.py` (Current User dependency).
+- Created `backend/app/api/endpoints/auth.py` (Login / Signup controllers).
+- Registered Auth Router in `main.py`.
+
+**Suggested Message:**
+```bash
+feat: implement jwt authentication and user management endpoints
+```
+
+---
+
 ## [Uncommitted] Database Layer Implementation
 **Date:** 2026-02-04
 **Changes:**

@@ -14,6 +14,9 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Wildfire Detection API", lifespan=lifespan)
 
+from app.api.endpoints import auth
+app.include_router(auth.router, prefix="/auth", tags=["auth"])
+
 @app.get("/")
 def read_root():
     return {"status": "ok", "service": "Wildfire Detection API"}
