@@ -1,5 +1,19 @@
 # Commit Log
 
+## [Uncommitted] File Upload Module Implementation
+**Date:** 2026-02-04
+**Changes:**
+- Created `backend/app/schemas/report.py` (ReportResponse models).
+- Implemented `backend/app/api/endpoints/upload.py` (File Handling, Disk Save, SQL Insert).
+- Configured shared volume path `/shared-data/uploads`.
+
+**Suggested Message:**
+```bash
+feat: implement file upload endpoint with disk storage and db logging
+```
+
+---
+
 ## [Uncommitted] Authentication Module Implementation
 **Date:** 2026-02-04
 **Changes:**
