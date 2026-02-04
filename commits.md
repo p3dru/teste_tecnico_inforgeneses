@@ -1,5 +1,19 @@
 # Commit Log
 
+## [Uncommitted] Project Documentation & Fixes
+**Date:** 2026-02-04
+**Changes:**
+- Created `README.md` with beginner-friendly setup and usage instructions.
+- Fixed `kestra/flows/fire_inference.yaml` validation error (added `database` field).
+- Fixed `backend/app/api/endpoints/upload.py` syntax error (restored file content).
+
+**Suggested Message:**
+```bash
+docs: add readme and fix kestra flow validation
+```
+
+---
+
 ## [Uncommitted] Reports Retrieval Module
 **Date:** 2026-02-04
 **Changes:**
