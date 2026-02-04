@@ -1,0 +1,99 @@
+id: fire-inference-flow
+namespace: dev
+
+inputs:
+  - id: file_path
+    type: STRING
+  - id: report_id
+    type: STRING
+
+tasks:
+  - id: inference
+    type: io.kestra.plugin.scripts.python.Script
+    runner: DOCKER
+    docker:
+      image: ultralytics/ultralytics:latest
+      volumes:
+        - /shared-data:/shared-data
+    beforeCommands:
+      - pip install kestra
+    script: |
+      import os
+      import json
+      from kestra import Kestra
+      from ultralytics import YOLO
+
+      # Paths
+      IMAGE_PATH = f"/shared-data/uploads/{os.getenv('FILE_PATH')}"
+      
+      print(f"Processing {IMAGE_PATH}...")
+      
+      # Mock Inference (to avoid downloading 600MB model on first run if net is slow, 
+      # but we have ultralytics image so it should be fine. let's try real load if model exists, else mock)
+      # For this MVP, we will use a pre-trained 'yolov8n.pt' which is small ~6MB.
+      
+      try:
+          model = YOLO("yolov8n.pt") 
+          results = model(IMAGE_PATH)
+          
+          # Process results
+          detections = []
+          for r in results:
+              for box in r.boxes:
+                  detections.append({
+                      "x1": float(box.xyxy[0][0]),
+                      "y1": float(box.xyxy[0][1]),
+                      "x2": float(box.xyxy[0][2]),
+                      "y2": float(box.xyxy[0][3]),
+                      "confidence": float(box.conf[0]),
+                      "class": int(box.cls[0]),
+                      "name": model.names[int(box.cls[0])]
+                  })
+          
+          # Logic: If 'fire' is detected (checking classes)
+          # YOLOv8n COCO classes: 0=person... doesn't have fire. 
+          # We will simulate "Fire" if we detect a "person" or "car" (just for testing) 
+          # OR just map everything to logs.
+          
+          summary = {
+              "object_count": len(detections),
+              "objects_detected": [d['name'] for d in detections]
+          }
+          
+          Kestra.outputs({
+              "status": "DONE", 
+              "summary": json.dumps(summary),
+              "raw_detections": json.dumps(detections)
+          })
+          
+      except Exception as e:
+          print(f"Error: {e}")
+          Kestra.outputs({
+              "status": "ERROR",
+              "error": str(e)
+          })
+          exit(1)
+    env:
+      FILE_PATH: "{{ inputs.file_path }}"
+
+  - id: update-postgres
+    type: io.kestra.plugin.jdbc.postgresql.Query
+    url: jdbc:postgresql://postgres:5432/wildfire_db
+    username: user
+    password: password
+    sql: |
+      UPDATE reports 
+      SET status = '{{ outputs.inference.vars.status }}'
+      WHERE id = '{{ inputs.report_id }}';
+
+  - id: log-mongo
+    type: io.kestra.plugin.mongodb.InsertOne
+    connection:
+      uri: mongodb://user:password@mongo:27017/wildfire_logs
+    collection: inference_logs
+    document: |
+      {
+        "report_id": "{{ inputs.report_id }}",
+        "timestamp": "{{ now() }}",
+        "detections": {{ outputs.inference.vars.raw_detections }}
+      }

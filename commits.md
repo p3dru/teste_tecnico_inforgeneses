@@ -1,5 +1,20 @@
 # Commit Log
 
+## [Uncommitted] Kestra Pipeline Implementation
+**Date:** 2026-02-04
+**Changes:**
+- Created `kestra/flows/fire_inference.yaml` orchestrating Docker Inference, SQL Update, and Mongo Log.
+- Embedded Python script with `ultralytics` YOLO inference.
+- Added `backend/scripts/register_flows.sh` (Manual registration Helper).
+- Updated `docker-compose.yml` configuration (attempted auth fix).
+
+**Suggested Message:**
+```bash
+feat: implement kestra fire inference flow and registration scripts
+```
+
+---
+
 ## [Uncommitted] Kestra Client & Upload Integration
 **Date:** 2026-02-04
 **Changes:**

@@ -33,6 +33,9 @@ services:
     environment:
       KESTRA_CONFIGURATION: |
         kestra:
+          server:
+            basic-auth:
+              enabled: false
           tasks:
             scripts:
               docker:
