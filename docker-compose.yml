@@ -58,7 +58,7 @@ services:
     networks:
       - climate-net
     environment:
-      DATABASE_URL: postgresql://user:password@postgres/wildfire_db
+      DATABASE_URL: postgresql+asyncpg://user:password@postgres/wildfire_db
       MONGO_URL: mongodb://user:password@mongo:27017
 
 volumes:

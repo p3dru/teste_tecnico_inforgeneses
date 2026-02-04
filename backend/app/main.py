@@ -1,6 +1,18 @@
 from fastapi import FastAPI
+from contextlib import asynccontextmanager
+from app.db.session import init_sql_db, init_mongo_db
 
-app = FastAPI(title="Wildfire Detection API")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    print("Initializing Databases...")
+    await init_sql_db()
+    await init_mongo_db()
+    yield
+    # Shutdown
+    print("Shutting down...")
+
+app = FastAPI(title="Wildfire Detection API", lifespan=lifespan)
 
 @app.get("/")
 def read_root():

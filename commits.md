@@ -1,5 +1,22 @@
 # Commit Log
 
+## [Uncommitted] Database Layer Implementation
+**Date:** 2026-02-04
+**Changes:**
+- Implemented SQLAlchemy Async Models (`User`, `Report`) for PostgreSQL.
+- Implemented Beanie/Motor ODM Models (`InferenceLog`) for MongoDB.
+- Configured async Database Sessions and Settings (`config.py`).
+- Updated `docker-compose.yml` to use `postgresql+asyncpg` protocol.
+- Updated `backend/requirements.txt` with `asyncpg`, `sqlalchemy`, `beanie`.
+- Added DB initialization hook in `backend/app/main.py`.
+
+**Suggested Message:**
+```bash
+feat: implement async db layer with postgres and mongodb models
+```
+
+---
+
 ## [Uncommitted] Infrastructure Setup
 **Date:** 2026-02-02
 **Changes:**

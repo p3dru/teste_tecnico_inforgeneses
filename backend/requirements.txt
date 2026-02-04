@@ -4,7 +4,10 @@ python-multipart
 torch --index-url https://download.pytorch.org/whl/cpu
 ultralytics
 psycopg2-binary
+asyncpg
+sqlalchemy
 motor
+beanie
 python-jose[cryptography]
 passlib[bcrypt]
 requests
