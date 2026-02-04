@@ -1,5 +1,19 @@
 # Commit Log
 
+## [Uncommitted] Kestra Client & Upload Integration
+**Date:** 2026-02-04
+**Changes:**
+- Implemented `backend/app/core/kestra_client.py` using `requests` to trigger flows.
+- Updated `backend/app/api/endpoints/upload.py` to trigger Kestra flow after file save.
+- Registered Upload Router in `main.py` under the `/files` prefix.
+
+**Suggested Message:**
+```bash
+feat: implement kestra http client and integrate with upload workflow
+```
+
+---
+
 ## [Uncommitted] File Upload Module Implementation
 **Date:** 2026-02-04
 **Changes:**
