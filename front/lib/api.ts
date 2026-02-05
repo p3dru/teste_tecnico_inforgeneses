@@ -24,6 +24,21 @@ export interface Report {
     longitude?: number;
 }
 
+export interface BoundingBox {
+    x1: number;
+    y1: number;
+    x2: number;
+    y2: number;
+    confidence: number;
+    class_name: string;
+}
+
+export interface ReportDetail extends Report {
+    detections: BoundingBox[];
+    model_version?: string;
+    processing_time_ms?: number;
+}
+
 class ApiClient {
     private baseUrl: string;
     private token: string | null = null;
@@ -41,9 +56,9 @@ class ApiClient {
         endpoint: string,
         options: RequestInit = {}
     ): Promise<T> {
-        const headers: HeadersInit = {
+        const headers: Record<string, string> = {
             'Content-Type': 'application/json',
-            ...options.headers,
+            ...(options.headers as Record<string, string>),
         };
 
         if (this.token) {
@@ -139,7 +154,7 @@ class ApiClient {
         return this.request(`/reports?skip=${skip}&limit=${limit}`);
     }
 
-    async getReport(id: string): Promise<Report> {
+    async getReport(id: string): Promise<ReportDetail> {
         return this.request(`/reports/${id}`);
     }
 

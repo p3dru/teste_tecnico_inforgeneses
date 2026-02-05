@@ -1,5 +1,35 @@
 # Commit Log
 
+## [Uncommitted] Frontend Visualization & Charts
+**Date:** 2026-02-05
+**Changes:**
+- Implemented `ReportDetailPage` with Image + Bounding Box visualization (responsive percentages).
+- Implemented `StatsChart` component using `chart.js` (Doughnut & Bar charts).
+- Updated Dashboard to include charts and link to report details.
+- Updated Backend to serve static files (images) from `/shared-data/uploads`.
+- Implemented `GET /reports/{id}` endpoint to fetch combined SQL + Mongo data.
+
+**Suggested Message:**
+\`\`\`bash
+feat: implement frontend visualization with bounding boxes and charts
+\`\`\`
+
+---
+
+## [Uncommitted] Upload Fix & Report Isolation
+**Date:** 2026-02-05
+**Changes:**
+- Fixed 500 Error in `/upload` by correcting Docker volume permissions (chmod 777 on shared volume).
+- Implemented User Isolation in `/reports`: users now only see their own reports.
+- Added `tests/test_upload_debug.py` script for reproduction.
+
+**Suggested Message:**
+\`\`\`bash
+fix: resolve upload permission error and implement report user isolation
+\`\`\`
+
+---
+
 ## [Uncommitted] Docker Build Optimization
 **Date:** 2026-02-04
 **Changes:**

@@ -13,7 +13,15 @@ async def lifespan(app: FastAPI):
     # Shutdown
     print("Shutting down...")
 
+from fastapi.staticfiles import StaticFiles
+import os
+
 app = FastAPI(title="Wildfire Detection API", lifespan=lifespan)
+
+# Mount /static/uploads to point to /shared-data/uploads
+SHARED_UPLOADS_DIR = "/shared-data/uploads"
+os.makedirs(SHARED_UPLOADS_DIR, exist_ok=True)
+app.mount("/static/uploads", StaticFiles(directory=SHARED_UPLOADS_DIR), name="uploads")
 
 # Configure CORS
 app.add_middleware(

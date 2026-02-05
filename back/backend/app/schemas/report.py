@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List, Dict, Any
 
 class ReportBase(BaseModel):
     file_path: str
@@ -15,3 +15,16 @@ class ReportResponse(ReportBase):
     
     class Config:
         from_attributes = True
+
+class BoundingBox(BaseModel):
+    x1: float
+    y1: float
+    x2: float
+    y2: float
+    confidence: float
+    class_name: str
+
+class ReportDetail(ReportResponse):
+    detections: List[BoundingBox] = []
+    model_version: Optional[str] = None
+    processing_time_ms: Optional[float] = None

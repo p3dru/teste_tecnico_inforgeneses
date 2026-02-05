@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { apiClient, Report } from '@/lib/api';
+import StatsChart from '@/app/components/StatsChart';
 
 export default function Dashboard() {
     const router = useRouter();
@@ -110,6 +112,8 @@ export default function Dashboard() {
                 </div>
 
                 {/* Reports List */}
+                <StatsChart reports={reports} />
+
                 <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
                     <h2 className="text-lg font-semibold text-gray-900 mb-4">Recent Reports</h2>
 
@@ -128,9 +132,10 @@ export default function Dashboard() {
                     ) : (
                         <div className="space-y-3">
                             {reports.map((report) => (
-                                <div
+                                <Link
                                     key={report.id}
-                                    className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                                    href={`/dashboard/report/${report.id}`}
+                                    className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
                                 >
                                     <div className="flex-1">
                                         <div className="flex items-center gap-3">
@@ -151,7 +156,7 @@ export default function Dashboard() {
                                             </p>
                                         )}
                                     </div>
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     )}
