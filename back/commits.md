@@ -1,5 +1,25 @@
 # Commit Log
 
+## [Uncommitted] Security & Configuration Hardening
+**Date:** 2026-02-05
+**Changes:**
+- **Configuration**: Created `.env` (and `.env.example`) for secure credential management.
+- **Refactor**: Migrated `backend` to use `pydantic-settings` for robust environment validation.
+- **Cleanup**: Removed hardcoded secrets from `config.py`, `kestra_client.py` and `register_flows.sh`.
+- **Scripts**: Updated helper scripts to source `.env` file automatically.
+
+**Suggested Message:**
+\`\`\`bash
+chore: implement secure configuration with pydantic-settings and dotenv
+
+- Create .env and .env.example
+- Migrate backend config to Pydantic BaseSettings
+- Remove hardcoded credentials from codebase
+- Update scripts to source environment variables
+\`\`\`
+
+---
+
 ## [Uncommitted] Project Documentation Update
 **Date:** 2026-02-05
 **Changes:**

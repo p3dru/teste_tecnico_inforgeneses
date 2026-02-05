@@ -1,7 +1,9 @@
 import requests
 import sys
 
-BASE_URL = "http://localhost:8000"
+import os
+
+BASE_URL = os.getenv("API_URL", "http://localhost:8000")
 
 def run():
     # 1. Signup/Login

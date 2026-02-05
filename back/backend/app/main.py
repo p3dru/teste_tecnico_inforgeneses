@@ -16,6 +16,8 @@ async def lifespan(app: FastAPI):
 from fastapi.staticfiles import StaticFiles
 import os
 
+from app.core.config import settings
+
 app = FastAPI(title="Wildfire Detection API", lifespan=lifespan)
 
 # Mount /static/uploads to point to /shared-data/uploads
@@ -26,7 +28,7 @@ app.mount("/static/uploads", StaticFiles(directory=SHARED_UPLOADS_DIR), name="up
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_origins=[str(origin) for origin in settings.BACKEND_CORS_ORIGINS],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

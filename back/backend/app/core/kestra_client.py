@@ -2,11 +2,14 @@ import requests
 import json
 from fastapi import HTTPException
 
-# Kestra API URL (Service name 'kestra' is resolvable inside Docker network)
-KESTRA_API_URL = "http://kestra:8080/api/v1/executions/trigger/dev/fire-inference-flow"
+from app.core.config import settings
 
-# Default Credentials (as per barriers.md)
-KESTRA_AUTH = ("admin@kestra.io", "Admin1234")
+# Kestra API URL
+# Note: we construct the full trigger URL using settings
+KESTRA_API_URL = f"{settings.KESTRA_API_URL}/executions/trigger/dev/fire-inference-flow"
+
+# Credentials from Settings
+KESTRA_AUTH = (settings.KESTRA_USER, settings.KESTRA_PASSWORD)
 
 def trigger_fire_detection_flow(file_path: str, report_id: str) -> str:
     """

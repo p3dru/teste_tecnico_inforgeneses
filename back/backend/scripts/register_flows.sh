@@ -1,9 +1,12 @@
 #!/bin/bash
 
-# Configuration
-KESTRA_URL="http://localhost:8080/api/v1/flows"
-USER="admin@kestra.io"
-PASS="Admin1234"
+# Load .env if exists
+if [ -f "../../.env" ]; then
+    export $(cat ../../.env | xargs)
+fi
+
+# Configuration with fallbacks
+KESTRA_URL="${KESTRA_API_URL:-http://localhost:8080/api/v1}/flows"
 FLOWS_DIR="../../kestra/flows"
 
 # Color codes
