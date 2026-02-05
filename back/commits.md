@@ -1,5 +1,34 @@
 # Commit Log
 
+## [Uncommitted] Automated Setup & Permission Fix
+**Date:** 2026-02-05
+**Changes:**
+- **Automation**: Created `setup.sh` script for fully automated project setup
+  - Automatically fixes volume permissions using Alpine container
+  - Generates AI model (`custom_fire_model.pt`)
+  - Verifies all services are running
+- **Documentation**: Created `PERMISSIONS_FIX.md` with comprehensive troubleshooting guide
+- **Scripts**: Added helper scripts for initialization (`init-permissions.sh`, `init-api.sh`)
+- **README**: Updated with automated setup instructions and Kestra authentication flow
+
+**Impact:**
+- Zero manual intervention needed for volume permissions
+- Works perfectly after `docker-compose down -v`
+- Reproducible setup across any environment
+
+**Suggested Message:**
+\`\`\`bash
+feat: implement automated setup script with permission fixes
+
+- Create setup.sh for one-command project initialization
+- Add automated volume permission fixing using Alpine container
+- Generate AI model automatically during setup
+- Update README with comprehensive setup guide
+- Add PERMISSIONS_FIX.md documentation
+\`\`\`
+
+---
+
 ## [Uncommitted] Security & Configuration Hardening
 **Date:** 2026-02-05
 **Changes:**
