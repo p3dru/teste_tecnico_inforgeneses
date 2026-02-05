@@ -1,0 +1,12 @@
+fastapi==0.109.2
+uvicorn==0.27.1
+python-multipart
+psycopg2-binary
+asyncpg
+sqlalchemy
+motor
+beanie
+python-jose[cryptography]
+passlib
+bcrypt==3.2.2
+requests
