@@ -1,5 +1,42 @@
 # Commit Log
 
+## [Uncommitted] Project Documentation Update
+**Date:** 2026-02-05
+**Changes:**
+- **Documentation**: Rewrote `README.md` with "Manual Setup" guide for Kestra flows (due to Auth barrier).
+- Added "Guia de Instalação", "Configuração Manual" and updated "Status do Projeto" to reflect Frontend completion.
+
+**Suggested Message:**
+\`\`\`bash
+docs: update readme with manual setup instructions
+
+- Rewrite README to serve as single source of truth
+- Add manual Kestra flow registration steps
+- Update project status and architecture diagrams
+\`\`\`
+
+---
+
+## [Uncommitted] AI Model Integration & System Reset
+**Date:** 2026-02-05
+**Changes:**
+- **Infrastructure**: Performed full system reset (wiped volumes/containers) to verify clean install.
+- **AI Model**: Implemented simulated custom model workflow.
+    - Generated `custom_fire_model.pt` in `/shared-data/models`.
+    - Updated `fire_inference.yaml` to prioritize custom model path.
+- **Barriers**: Documented Kestra Auth persistence issue in `barriers.md`.
+
+**Suggested Message:**
+\`\`\`bash
+feat: integrate custom ai model and reset infrastructure
+
+- Generate simulated custom YOLO model in shared volume
+- Update Kestra flow to use custom model path
+- Document Kestra auth barriers
+\`\`\`
+
+---
+
 ## [Uncommitted] Frontend Visualization & Charts
 **Date:** 2026-02-05
 **Changes:**
