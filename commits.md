@@ -6,10 +6,11 @@
 - Created `README.md` with beginner-friendly setup and usage instructions.
 - Fixed `kestra/flows/fire_inference.yaml` validation error (added `database` field).
 - Fixed `backend/app/api/endpoints/upload.py` syntax error (restored file content).
+- Pinned `bcrypt==3.2.2` in `requirements.txt` to fix Passlib 72-byte limit bug.
 
 **Suggested Message:**
 ```bash
-docs: add readme and fix kestra flow validation
+docs: add readme and fix dependencies
 ```
 
 ---
