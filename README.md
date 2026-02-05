@@ -2,44 +2,73 @@
 
 Sistema de detecção de incêndios florestais usando Computer Vision (YOLOv8) com orquestração via Kestra e Frontend em Next.js.
 
-## � Status do Projeto
+## 📊 Status do Projeto
 
 - ✅ **Backend:** API FastAPI Completa (Auth, Upload, Reports)
 - ✅ **Pipeline:** Orquestração Kestra + ML Flow (YOLOv8)
 - ✅ **Frontend:** Next.js Dashboard (Upload, Lista, Gráficos Chart.js, Bounding Boxes)
 - ✅ **Infra:** Docker Compose (Postgres, Mongo, Kestra, API)
+- ✅ **Setup Automatizado:** Script `setup.sh` para configuração completa
 - ⏳ **Deploy:** Pendente
 
 ---
 
-## 🚀 Guia de Instalação (Setup Manual)
+## 🚀 Guia de Instalação (AUTOMATIZADO)
 
-Devido a políticas de segurança da imagem Docker do Kestra, **o registro os fluxos de automação requer uma etapa manual**. Siga a ordem abaixo:
+### Método 1: Setup Automatizado (RECOMENDADO) ✨
 
-### 1. Iniciar Infraestrutura
+Use o script `setup.sh` que configura **tudo automaticamente**:
 
 ```bash
 cd back
-docker-compose up -d --build
+./setup.sh
 ```
 
-Aguarde ~30 segundos para todos os serviços subirem.
+**O que o script faz:**
+- ✅ Cria estrutura de diretórios
+- ✅ Configura arquivo `.env` (se necessário)
+- ✅ Sobe todos os containers Docker
+- ✅ **Corrige permissões do volume compartilhado automaticamente**
+- ✅ Gera o modelo de IA customizado (`custom_fire_model.pt`)
+- ✅ Verifica status final
 
-### 2. Configuração Manual do Kestra (CRÍTICO 🚨)
+**Após o setup, você só precisa:**
+1. Configurar o Kestra (veja seção abaixo)
+2. Iniciar o Frontend
 
-O script de automação pode falhar com erro 401. Para corrigir:
+---
 
-1. Acesse o **Kestra UI**: [http://localhost:8080](http://localhost:8080)
-2. Faça login com as credenciais padrão:
-   - **User:** `admin@kestra.io`
-   - **Pass:** `kestra` (ou tente `admin` / `Admin1234`)
-3. No menu lateral, clique em **Flows** -> **Create**.
-4. Copie o conteúdo do arquivo `back/kestra/flows/fire_inference.yaml`.
-5. Cole no editor e clique em **Save**.
+### Configuração do Kestra (Passo Manual Necessário) 🔐
 
-*Agora o sistema de inferência está ativo!*
+Após rodar o `setup.sh`, acesse o Kestra:
 
-### 3. Iniciar Frontend
+1. **Acesse:** [http://localhost:8080](http://localhost:8080)
+
+2. **Primeira vez?** O Kestra pedirá para criar o primeiro usuário:
+   - Escolha qualquer email/senha (ex: `admin@kestra.io` / `kestra`)
+   - **IMPORTANTE:** Anote as credenciais!
+
+3. **Atualize o arquivo `.env`** com as credenciais que você criou:
+   ```bash
+   # Edite back/.env
+   KESTRA_USER=admin@kestra.io
+   KESTRA_PASSWORD=kestra
+   ```
+
+4. **Reinicie a API** para aplicar as credenciais:
+   ```bash
+   cd back
+   docker-compose restart api
+   ```
+
+5. **Registre o Flow de Inferência:**
+   - No Kestra UI, vá em **Flows** → **Create**
+   - Copie o conteúdo de `back/kestra/flows/fire_inference.yaml`
+   - Cole no editor e clique em **Save**
+
+---
+
+### Iniciar Frontend
 
 ```bash
 cd front
@@ -47,17 +76,34 @@ npm install
 npm run dev
 ```
 
-Acesse o Dashboard: [http://localhost:3000](http://localhost:3000)
+Acesse: [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 🔄 Reset Completo do Sistema
+
+Para apagar tudo e reconfigurar do zero:
+
+```bash
+cd back
+docker-compose down -v  # Remove containers e volumes
+./setup.sh              # Reconfigura automaticamente
+```
+
+**Lembre-se:** Após o reset, você precisará:
+1. Recriar o usuário no Kestra (http://localhost:8080)
+2. Atualizar o `.env` com as novas credenciais
+3. Registrar o flow novamente
 
 ---
 
 ## 🔗 Links de Acesso
 
-| Serviço | URL | Credenciais (Default) |
+| Serviço | URL | Credenciais |
 | :--- | :--- | :--- |
-| **Frontend** | [http://localhost:3000](http://localhost:3000) | Crie sua conta na tela de Login |
+| **Frontend** | [http://localhost:3000](http://localhost:3000) | Crie sua conta na tela de Signup |
 | **API Docs** | [http://localhost:8000/docs](http://localhost:8000/docs) | - |
-| **Kestra UI** | [http://localhost:8080](http://localhost:8080) | `admin@kestra.io` / `kestra` |
+| **Kestra UI** | [http://localhost:8080](http://localhost:8080) | Definidas por você no primeiro acesso |
 
 ---
 
@@ -74,29 +120,89 @@ graph LR
     E -->|Write Logs| G[(MongoDB)]
 ```
 
+---
+
 ## 🛠️ Comandos Úteis
 
-**Reiniciar tudo (com perda de dados):**
+### Backend
+
 ```bash
 cd back
-docker-compose down -v
-docker-compose up -d
-# Lembre-se de recadastrar o Flow no Kestra manualmente!
-```
 
-**Ver logs da API:**
-```bash
+# Ver status dos containers
+docker-compose ps
+
+# Ver logs
 docker-compose logs -f api
+docker-compose logs -f kestra
+
+# Restart sem perder dados
+docker-compose restart
+
+# Parar tudo
+docker-compose down
 ```
 
-**Rodar Build do Frontend:**
+### Frontend
+
 ```bash
 cd front
+
+# Desenvolvimento
+npm run dev
+
+# Build de produção
 npm run build
+
+# Linter
+npm run lint
 ```
 
-## � Documentação Técnica
+---
 
-- [Backend README](./back/README.md)
-- [Commits Log](./back/commits.md)
-- [Barriers & Trade-offs](./back/barriers.md)
+## 📚 Documentação Técnica
+
+- [Setup Script](./back/setup.sh) - Script de configuração automatizada
+- [Permission Fix Guide](./back/PERMISSIONS_FIX.md) - Solução para problemas de permissão
+- [Backend README](./back/README.md) - Documentação detalhada do backend
+- [Commits Log](./back/commits.md) - Histórico de mudanças
+- [Barriers & Trade-offs](./back/barriers.md) - Decisões arquiteturais
+
+---
+
+## 🐛 Troubleshooting
+
+### Erro: "Permission denied" no Kestra
+
+Execute o script de setup que corrige automaticamente:
+```bash
+cd back
+./setup.sh
+```
+
+### Erro: "Port 8080 already in use"
+
+```bash
+# Verificar o que está usando a porta
+sudo lsof -i :8080
+
+# Matar processo
+sudo kill -9 <PID>
+```
+
+### Erro: "401 Unauthorized" ao fazer upload
+
+Verifique se:
+1. Você criou o usuário no Kestra UI
+2. Atualizou o `.env` com as credenciais corretas
+3. Reiniciou a API: `docker-compose restart api`
+
+---
+
+## 🤝 Contribuindo
+
+Este é um projeto de teste técnico. Para mais informações, consulte a documentação específica de cada módulo.
+
+## 📝 Licença
+
+Projeto educacional - Teste Técnico
