@@ -27,7 +27,6 @@ for file in "$FLOWS_DIR"/*.yaml; do
         echo -n "Registering $filename... "
         
         response=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$KESTRA_URL" \
-            -u "$USER:$PASS" \
             -H "Content-Type: application/x-yaml" \
             --data-binary @"$file")
             
