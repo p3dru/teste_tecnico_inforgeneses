@@ -15,7 +15,7 @@ tasks:
     containerImage: ultralytics/ultralytics:latest
     docker:
       volumes:
-        - /shared-data:/shared-data
+        - back_shared-data:/shared-data
     beforeCommands:
       - pip install kestra
     script: |
@@ -88,7 +88,7 @@ tasks:
   - id: log-mongo
     type: io.kestra.plugin.mongodb.InsertOne
     connection:
-      uri: mongodb://user:password@mongo:27017/wildfire_logs
+      uri: mongodb://user:password@mongo:27017/wildfire_logs?authSource=admin
     database: wildfire_logs
     collection: inference_logs
     document: |

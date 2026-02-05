@@ -1,5 +1,28 @@
 # Commit Log
 
+## [Uncommitted] Kestra Flow & Orchestration Fixes
+**Date:** 2026-02-05
+**Changes:**
+- **Flow Definition**: Corrected Docker volume mount path (`back_shared-data:/shared-data`) in `fire_inference.yaml`.
+- **Database Auth**: Added `?authSource=admin` to MongoDB connection URI to support root user authentication.
+- **Setup Script**: Enhanced `setup.sh` to include Docker Socket permission fix (`chmod 666`) via Alpine sidecar.
+
+**Impact:**
+- Solved `FileNotFoundError` inside task runner.
+- Solved MongoDB `AuthenticationFailed` error.
+- Solved `java.net.BindException` (Docker Socket permission) for task spawning.
+
+**Suggested Message:**
+\`\`\`bash
+fix(kestra): resolve container volume mounting and mongo authentication
+
+- Fix docker volume mount name in inference flow
+- Add authSource=admin to MongoDB connection string
+- Add docker.sock permission fix to setup script
+\`\`\`
+
+---
+
 ## [Uncommitted] Automated Setup & Permission Fix
 **Date:** 2026-02-05
 **Changes:**

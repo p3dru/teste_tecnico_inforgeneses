@@ -27,11 +27,12 @@ docker-compose up -d
 echo "⏳ Aguardando containers iniciarem..."
 sleep 10
 
-# 5. Fixar permissões do volume compartilhado
-echo "🔧 Configurando permissões do volume compartilhado..."
-docker run --rm -v back_shared-data:/data alpine sh -c "
+# 5. Fixar permissões do volume compartilhado e Docker Socket
+echo "🔧 Configurando permissões do volume e Docker Socket..."
+docker run --rm -v back_shared-data:/data -v /var/run/docker.sock:/var/run/docker.sock alpine sh -c "
     mkdir -p /data/uploads /data/models && 
     chmod -R 777 /data &&
+    chmod 666 /var/run/docker.sock &&
     echo '✅ Permissões configuradas com sucesso!'
 "
 
