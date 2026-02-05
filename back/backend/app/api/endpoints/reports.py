@@ -24,7 +24,8 @@ async def read_reports(
     - Filters: status (PROCESSING, DONE, ERROR)
     - Returns newest first.
     """
-    query = select(Report).order_by(desc(Report.created_at)).offset(skip).limit(limit)
+    # Filter by current user for isolation
+    query = select(Report).where(Report.user_id == current_user.id).order_by(desc(Report.created_at)).offset(skip).limit(limit)
     
     if status:
         query = query.where(Report.status == status)
