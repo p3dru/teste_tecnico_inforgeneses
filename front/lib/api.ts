@@ -92,7 +92,7 @@ class ApiClient {
     }
 
     async signup(username: string, password: string): Promise<void> {
-        await this.request('/auth/signup', {
+        await this.request('/auth/users', {
             method: 'POST',
             body: JSON.stringify({ username, password }),
         });
