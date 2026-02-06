@@ -253,11 +253,4 @@ Projeto educacional - Teste Técnico
 ## 🔗 Links Úteis
 
 - 📦 [Guia de Instalação Completo](INSTALLATION.md)
-- 🤖 [Como Treinar Modelo AI](back/TRAINING.md)
-- 🧪 [Documentação de Testes](back/backend/tests/README.md)
-- 📊 [Relatório de Cobertura](back/backend/tests/COVERAGE_REPORT.md)
 - 🐛 [Troubleshooting Detalhado](INSTALLATION.md#-troubleshooting-completo)
-
----
-
-**Desenvolvido com ❤️ usando FastAPI, Next.js, Kestra e YOLOv8**
