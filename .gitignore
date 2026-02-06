@@ -20,6 +20,10 @@ out/
 .env.production.local
 .vercel
 
+# Allow .env.example files
+!.env.example
+!.env.local.example
+
 # IDEs
 .vscode/
 .idea/
