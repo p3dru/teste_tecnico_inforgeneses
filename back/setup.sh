@@ -29,22 +29,33 @@ sleep 10
 
 # 5. Fixar permissões do volume compartilhado e Docker Socket
 echo "🔧 Configurando permissões do volume e Docker Socket..."
-docker run --rm -v back_shared-data:/data -v /var/run/docker.sock:/var/run/docker.sock alpine sh -c "
-    mkdir -p /data/uploads /data/models && 
-    chmod -R 777 /data &&
+
+# Configurar diretórios locais (agora via bind mount)
+mkdir -p shared-data/uploads shared-data/models
+chmod -R 777 shared-data
+
+# Configurar Docker Socket (precisa de acesso privilegiado ou via docker trick)
+docker run --rm -v /var/run/docker.sock:/var/run/docker.sock alpine sh -c "
     chmod 666 /var/run/docker.sock &&
-    echo '✅ Permissões configuradas com sucesso!'
+    echo '✅ Docker Socket configurado!'
 "
 
-# 6. Gerar modelo customizado
-echo "🤖 Gerando modelo de IA customizado..."
-docker run --rm -v back_shared-data:/data --entrypoint python ultralytics/ultralytics:latest -c "
+# 6. Gerar modelo customizado (APENAS se não existir)
+echo "🤖 Verificando modelo de IA..."
+docker run --rm -v "$(pwd)/shared-data:/data" --entrypoint python ultralytics/ultralytics:latest -c "
 from ultralytics import YOLO
 import os
-os.makedirs('/data/models', exist_ok=True)
-model = YOLO('yolov8n.pt')
-model.save('/data/models/custom_fire_model.pt')
-print('✅ Modelo gerado com sucesso!')
+
+model_path = '/data/models/custom_fire_model.pt'
+
+if os.path.exists(model_path):
+    print(f'✅ Modelo customizado já existe em {model_path}. Pulando geração.')
+else:
+    print('⚠️ Modelo não encontrado. Gerando modelo padrão (YOLOv8n)...')
+    os.makedirs('/data/models', exist_ok=True)
+    model = YOLO('yolov8n.pt')
+    model.save(model_path)
+    print('✅ Modelo padrão gerado com sucesso!')
 "
 
 # 7. Verificar status
