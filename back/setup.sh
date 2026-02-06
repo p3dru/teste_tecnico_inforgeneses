@@ -8,7 +8,7 @@ echo "🚀 Configurando ambiente do projeto..."
 
 # 1. Criar diretórios necessários
 echo "📁 Criando estrutura de diretórios..."
-mkdir -p kestra/flows kestra/scripts backend/scripts
+mkdir -p kestra/flows kestra/scripts backend/scripts shared-data/uploads shared-data/models
 
 # 2. Verificar se .env existe
 if [ ! -f ".env" ]; then
