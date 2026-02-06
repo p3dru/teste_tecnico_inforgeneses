@@ -21,17 +21,11 @@
 - 6 modules at 100% coverage (config, security, models, schemas)
 
 **Suggested Message:**
-```bash
-test: implement comprehensive test suite with 79% coverage
+```docs: add tests documentation
 
-- Add robust async test fixtures with file-based SQLite
-- Implement 20 passing tests across auth, upload, and reports
-- Add proper transaction rollback for test isolation
-- Mock external dependencies (Kestra, filesystem)
-- Configure session-scoped event loop for async tests
-- Make upload directory configurable for testing
-- Create comprehensive testing documentation
-- Achieve 79% code coverage (exceeds 70% target)
+- Add comprehensive README for running tests
+- Add helper script run_tests_venv.sh for easy execution
+- Remove static coverage report in favor of dynamic generation
 ```
 
 ---
