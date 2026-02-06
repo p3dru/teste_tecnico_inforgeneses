@@ -42,7 +42,7 @@ services:
                 volume-enabled: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - shared-data:/shared-data
+      - ./shared-data:/shared-data
     ports:
       - "8080:8080"
     networks:
@@ -52,7 +52,7 @@ services:
     build: ./backend
     volumes:
       - ./backend:/app
-      - shared-data:/shared-data
+      - ./shared-data:/shared-data
     ports:
       - "8000:8000"
     depends_on:
@@ -69,7 +69,6 @@ services:
 volumes:
   postgres_data:
   mongo_data:
-  shared-data:
 
 
 networks:

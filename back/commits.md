@@ -1,5 +1,32 @@
 # Commit Log
 
+## [Uncommitted] UX Improvements: Local Bind Mounts & Setup
+**Date:** 2026-02-06
+**Changes:**
+- **Docker**: Switched from named volumes to local bind mounts (`./shared-data`) in `back/docker-compose.yml`.
+  - Allows direct access to `models` and `uploads` folders from the host OS.
+- **Setup**: Updated `back/setup.sh` to handle local directory creation and permissions directly.
+  - Generates default `custom_fire_model.pt` automatically if missing (Option 2).
+- **Documentation**: Updated `back/TRAINING.md` with "drag-and-drop" model integration guide.
+- **Git**: Updated `.gitignore` to protect local `shared-data` content.
+
+**Impact:**
+- Drastically simplifies model management: Users can just drag files into `back/shared-data/models`.
+- Eliminates complex Docker CLI commands for file transfer.
+- Ensures seamless "out-of-the-box" experience for recruiters/evaluators via `setup.sh`.
+
+**Suggested Message:**
+```bash
+feat: switch to user-friendly local bind mounts for easy model access
+
+- Update docker-compose to use ./shared-data bind mount
+- Simplify setup.sh to use local filesystem operations
+- Update documentation for drag-and-drop model workflow
+- Update .gitignore for local data folder
+```
+
+---
+
 ## [Uncommitted] Test Suite Implementation (79% Coverage - 20/21 Tests Passing)
 **Date:** 2026-02-06
 **Changes:**

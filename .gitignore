@@ -58,6 +58,10 @@ dataset/
 
 # Docker volumes (data persistence)
 back_shared-data/
+back/shared-data/*
+!back/shared-data/models/
+!back/shared-data/models/custom_fire_model.pt
+
 
 # Secrets (CRITICAL - DO NOT COMMIT)
 back/.env
