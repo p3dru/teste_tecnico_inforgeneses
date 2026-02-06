@@ -20,8 +20,8 @@ from app.core.config import settings
 
 app = FastAPI(title="Wildfire Detection API", lifespan=lifespan)
 
-# Mount /static/uploads to point to /shared-data/uploads
-SHARED_UPLOADS_DIR = "/shared-data/uploads"
+# Mount /static/uploads to point to /shared-data/uploads (configurable for tests)
+SHARED_UPLOADS_DIR = os.getenv("SHARED_UPLOADS_DIR", "/shared-data/uploads")
 os.makedirs(SHARED_UPLOADS_DIR, exist_ok=True)
 app.mount("/static/uploads", StaticFiles(directory=SHARED_UPLOADS_DIR), name="uploads")
 

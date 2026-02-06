@@ -12,7 +12,7 @@ from app.core.kestra_client import trigger_fire_detection_flow
 
 router = APIRouter()
 
-UPLOAD_DIR = "/shared-data/uploads"
+UPLOAD_DIR = os.getenv("SHARED_UPLOADS_DIR", "/shared-data/uploads")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 @router.post("/upload", response_model=ReportResponse, status_code=status.HTTP_202_ACCEPTED)

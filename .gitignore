@@ -43,3 +43,26 @@ htmlcov/
 
 # Docker
 .dockerignore
+
+# Train
+dataset/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Docker volumes (data persistence)
+back_shared-data/
+
+# Secrets (CRITICAL - DO NOT COMMIT)
+back/.env
+front/.env.local
+
+# Test artifacts
+back/backend/venv/
+/tmp/test-shared-data-pytest/
+test_wildfire.db
+
+# AI Models (optional - uncomment if models are too large)
+# back/shared-data/models/*.pt
