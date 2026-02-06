@@ -29,7 +29,6 @@ services:
 
   kestra:
     image: kestra/kestra:latest
-    entrypoint: [ "/init-permissions.sh" ]
     command: [ "server", "local" ]
     environment:
       KESTRA_CONFIGURATION: |
@@ -44,7 +43,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - shared-data:/shared-data
-      - ./kestra/scripts/init-permissions.sh:/init-permissions.sh:ro
     ports:
       - "8080:8080"
     networks:

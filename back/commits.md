@@ -1,5 +1,50 @@
 # Commit Log
 
+## [Uncommitted] AI Training Documentation & Final Verification
+**Date:** 2026-02-06
+**Changes:**
+- **Training Guide**: Rewrote `TRAINING.md` to adopt **Cloud-First Workflow** (Roboflow).
+  - Replaced local training instructions with Roboflow export guide.
+  - Simplified integration steps (Download Weights -> Rename -> Copy).
+- **Verification**: Performed full system teardown (`down -v`) and rebuild (`setup.sh`).
+  - Confirmed `setup.sh` correctly restores environment from scratch.
+  - Validated Kestra permissions and Docker socket access post-reset.
+
+**Suggested Message:**
+\`\`\`bash
+docs: update training guide for roboflow and verify system reset
+
+- Switch training documentation to Roboflow Cloud workflow
+- Verify setup.sh robustness with full volume wipe
+- Finalize documentation for handover
+\`\`\`
+
+---
+
+## [Uncommitted] Project Cleanup & Organization
+**Date:** 2026-02-06
+**Changes:**
+- **Cleanup**: Removed obsolete `backend` directory from project root (duplicate).
+- **Maintenance**: Removed redundant scripts (`init-permissions.sh`, `init-api.sh`) superseded by `setup.sh`.
+- **Artifacts**: Removed local model leftovers (`yolov8n.pt`) and old logs.
+- **Docker**: Cleaned up `docker-compose.yml` (removed custom entrypoint reference).
+
+**Impact:**
+- Reduced project size.
+- Eliminated confusion between `back/backend` (correct) and `backend` (obsolete).
+- Simplified container startup flow.
+
+**Suggested Message:**
+\`\`\`bash
+chore: cleanup redundant files and directories
+
+- Remove obsolete /backend directory (duplicate)
+- Remove unused shell scripts and local model files
+- Revert kestra entrypoint to default in docker-compose
+\`\`\`
+
+---
+
 ## [Uncommitted] Kestra Flow & Orchestration Fixes
 **Date:** 2026-02-05
 **Changes:**
