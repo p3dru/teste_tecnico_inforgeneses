@@ -63,7 +63,19 @@ async def read_report_detail(
     processing_time_ms = 0.0
     
     if log:
-        detections = log.detections
+        # Fix: Map Kestra 'name' to Schema 'class_name'
+        detections = [
+            {
+                "x1": d.get("x1"),
+                "y1": d.get("y1"),
+                "x2": d.get("x2"),
+                "y2": d.get("y2"),
+                "confidence": d.get("confidence"),
+                "class_name": d.get("name"),  # Map name -> class_name
+                "class_id": d.get("class")    # Preserve ID if needed
+            }
+            for d in log.detections
+        ]
         model_version = log.model_version
         processing_time_ms = log.processing_time_ms
         

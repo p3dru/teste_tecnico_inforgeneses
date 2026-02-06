@@ -23,6 +23,7 @@ feat: switch to user-friendly local bind mounts for easy model access
 - Simplify setup.sh to use local filesystem operations
 - Update documentation for drag-and-drop model workflow
 - Update .gitignore for local data folder
+- Fix: Map Mongo 'name' key to Pydantic 'class_name' to fix API 500 on detections
 ```
 
 ---

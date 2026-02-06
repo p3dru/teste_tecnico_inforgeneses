@@ -23,6 +23,7 @@ class BoundingBox(BaseModel):
     y2: float
     confidence: float
     class_name: str
+    class_id: Optional[int] = None
 
 class ReportDetail(ReportResponse):
     detections: List[BoundingBox] = []
